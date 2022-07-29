@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;800&family=Karla:ital,wght@0,400;0,500;1,400&family=Staatliches&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+@mixin flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    $border: 1px solid red;
+
+.navbar{
+    @include flex();
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background-image: linear-gradient(to right, #672280, #A626D3);
+    color: white;
+}
+
+.nav--logo{
+    @include flex();
+    font-family: 'Karla', sans-serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+
+    p{
+        margin-left: .5rem;
+    }
+
+}
+
+.img--logo{
+    width: 3rem;
+}
+
+.module{
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+}
+
+.form{
+    @include flex();
+    flex-direction: column;
+    margin-top: 3rem;
+}
+
+.search--bar{
+    @include flex();
+    flex-direction: column;
+    width: 89vw;
+    justify-content: space-evenly;
+
+    input{
+        width: 41vw;
+        height: 3.5rem;
+        border-radius: 6px;
+        border: 1px solid gray;
+        font-size: 1rem;
+        text-align: center;
+        margin: .5rem 0;
+    }
+
+}
+
+.search--button{
+    width: 90vw;
+}
+
+    
+    .searchBtn{
+        @include flex();
+        text-align: center;
+        width: 41.5vw;
+        margin-top: 1rem;
+        height: 4rem;
+        border-radius: 6px;
+        border: 1px solid black;
+        font-size: 1rem;
+        border: none;
+        background-image: linear-gradient(to right, #672280, #A626D3);
+        color: white;
+    }
+
+
+.addBtn2{
+    @include flex();
+    text-align: center;
+    height: 4rem;
+    border-radius: 6px;
+    border: 1px solid black;
+    font-size: 1rem;
+    border: none;
+    background-image: linear-gradient(to right, #672280, #A626D3);
+    color: white;
+    margin-top: 2rem;
+    width: 19vw;
+}
+
+.addBtn{
+    @include flex();
+    text-align: center;
+    width: 41vw;
+    height: 4rem;
+    border-radius: 6px;
+    border: 1px solid black;
+    font-size: 1rem;
+    border: none;
+    background-image: linear-gradient(to right, #672280, #A626D3);
+    color: white;
+    margin-top: 2rem;
+}
+
+.display{
+    @include flex();
+    flex-direction: column;
+    height: 35rem;
+
+    .memeTitle{
+        margin-bottom: 1.5rem;
+        font-family: sans-serif;
+    }
+
+    .disp--img{
+        width: 83vw;
+        height: 67vh;
+    }
+
+    .texts{
+
+        display: flex;
+        justify-content: center;
+        align-items: right;
+
+        #topText{
+            display: flex;
+            justify-content: center;
+            cursor: move;
+            position: absolute;
+        }
+        
+        #topTextheader{
+            opacity: 0;
+            align-items: center;
+            text-align: center;
+            @include flex();
+            transform: translateY(1.5rem);
+            cursor: move;
+            position: absolute;
+            text-align: right;
+            font-size: 18px;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: white;
+            width: (41vw);
+        }
+
+        #bottomText{
+            display: flex;
+            justify-content: center;
+            cursor: move;
+            position: absolute;
+            transform: translateY(18rem);
+        }
+        
+        #bottomTextheader{
+            opacity: 0;
+            align-items: center;
+            text-align: center;
+            @include flex();
+            cursor: move;
+            position: absolute;
+            text-align: right;
+            font-size: 18px;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: white;
+            width: (41vw);
+        }
+
+        .memeText--top{
+            color: black;
+            text-align: center;
+            transform: translateY(10vh);
+            color: white;
+            font-weight: 800;
+            font-family: 'Staatliches', cursive;
+            -webkit-text-stroke-width: 2px;
+            -webkit-text-stroke-color: black;
+            font-size: 3.5rem;
+        }
+        .memeText--bottom{
+            position: absolute;
+            transform: translateY(-10vh);
+            text-align: center;
+            color: white;
+            font-weight: 800;
+            font-family: 'Staatliches', cursive;
+            -webkit-text-stroke-width: 2px;
+            -webkit-text-stroke-color: black;
+            font-size: 3.5rem;
+        }
+    }
+
+}
+
+.add--remove--btn{
+    @include flex();
+    width: 100vw;
+    gap: 2rem;
+}
+
+.download{
+    @include flex();
+}
+
+.text-field{
+    @include flex();
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+footer{
+    @include flex();
+    background-color: #cb5cf3;
+    height: 3rem;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    margin-top: 10vh;
+}
+
+
+
