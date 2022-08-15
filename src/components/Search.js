@@ -1,50 +1,136 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ResizeableDiv from "./ResizeableDiv";
 import memeData from "./memeData";
 import Text from "./Text";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import * as htmlToImage from "html-to-image";
+import { dropChange } from "../features/settingsSlice";
+import DownloadIcon from "@mui/icons-material/Download";
+import AddIcon from "@mui/icons-material/Add";
+import SaveIcon from "@mui/icons-material/Save";
+import RemoveIcon from "@mui/icons-material/Remove";
+import AutorenewIcon from "@mui/icons-material/Autorenew";
 
 export default function Search() {
-  const [meme, setMeme] = useState({
-    topText: "",
-    bottomText: "",
-    randomMemeImage: "https://imgflip.com/s/meme/Epic-Handshake.jpg",
-  });
-
-  const [memeName, setMemeName] = useState("Epic Handshake");
-
-  const textBoxState = useSelector((state) => state.text.data);
-
-  const downloadImg = () => {
-    let element = document.createElement("a");
-    let file = new Blob([meme.randomMemeImage.toString()], { type: "image/*" });
-    element.href = URL.createObjectURL(file);
-    element.download = `${memeName}.jpg`;
-    element.click();
+  const screenshot = () => {
+    htmlToImage
+      .toJpeg(document.getElementById("texts"), { quality: 1 })
+      .then(function(dataUrl) {
+        var link = document.createElement("a");
+        link.download = `${memeName}-memeGenerator.jpeg`;
+        link.href = dataUrl;
+        link.click();
+      });
   };
 
-  console.log(meme.randomMemeImage);
+  const dropState = useSelector((state) => state.setting_drop.data);
 
+  const dispatch = useDispatch();
+
+  const font_style = {
+    color: dropState.font_color,
+    fontSize: dropState.font_size,
+    fontFamily: dropState.font_family,
+    textAlign: dropState.text_align,
+    backgroundColor: dropState.bg_color,
+  };
+
+  // functions to change font[size, color, family].
+  const changeFontColor = (e) => {
+    const font_color = e.target.value;
+
+    dispatch(
+      dropChange({
+        ...dropState,
+        font_color,
+      })
+    );
+  };
+
+  const changeFontSize = (e) => {
+    const font_size = e.target.value;
+
+    dispatch(
+      dropChange({
+        ...dropState,
+        font_size,
+      })
+    );
+  };
+
+  const changeFontFamily = (e) => {
+    const font_family = e.target.value;
+
+    dispatch(
+      dropChange({
+        ...dropState,
+        font_family,
+      })
+    );
+  };
+
+  const changeAlignment = (e) => {
+    const text_align = e.target.value;
+
+    dispatch(
+      dropChange({
+        ...dropState,
+        text_align,
+      })
+    );
+  };
+
+  const changeBgColor = (e) => {
+    const bg_color = e.target.value;
+
+    dispatch(
+      dropChange({
+        ...dropState,
+        bg_color,
+      })
+    );
+  };
+
+  // accesing global state (using redux toolkit) for accesing state change made in Text component.
+  const textBoxState = useSelector((state) => state.text.data);
+
+  // state to populate text fields. (when +, - is clicked this state is updated accordingly)
   const [text, setText] = useState(0);
 
+  // Array to store text fields and draggable divs when populated.
   let textBox_array = [];
   let movable_array = [];
 
+  // logic for generating text fields on run-time.
   for (let i = 1; i <= text; i++) {
     textBox_array.push(<Text id={i} />);
-    movable_array.push(<ResizeableDiv id={i} />);
+    movable_array.push(<ResizeableDiv id={i} key={i} />);
   }
 
+  // state for storing random-meme link.
+  const [meme, setMeme] = useState({
+    randomMemeImage: "https://imgflip.com/s/meme/Epic-Handshake.jpg",
+  });
+
+  // state for meme name.
+  const [memeName, setMemeName] = useState("Epic Handshake");
+
+  // state for storing meme data.
+  const [allMeme, setAllMeme] = useState([]);
+
+  useEffect(() => {
+    fetch("https://api.imgflip.com/get_memes")
+      .then((res) => res.json())
+      .then((data) => setAllMeme(data));
+  }, []);
+
+  // logic for generating memes.
   function getMeme(e) {
     e.preventDefault();
 
-    movable_array = [""];
-    textBox_array = [""];
-
-    let memesArray = memeData.data.memes;
     let randomNum = Math.ceil(Math.random() * 100);
-    let url = memesArray[randomNum].url;
-    let meme_name = memeData.data.memes[randomNum].name;
+    let url = allMeme.data.memes[randomNum].url;
+    let meme_name = allMeme.data.memes[randomNum].name;
 
     // state-change function for meme (changing meme image)
     setMeme((prevState) => {
@@ -59,10 +145,126 @@ export default function Search() {
   }
 
   return (
-    <main>
+    <>
+      <main>
+        <div className="display">
+          {dropState.value && (
+            <div className="drop">
+              <div className="stng">
+                <p>
+                  Font-Color: &nbsp;{" "}
+                  <input
+                    onChange={changeFontColor}
+                    type="color"
+                    name=""
+                    id="text"
+                  />{" "}
+                </p>
+                <p>
+                  Background-Color: &nbsp;{" "}
+                  <input
+                    onChange={changeBgColor}
+                    type="color"
+                    name=""
+                    id="text"
+                  />{" "}
+                </p>
+                <p>
+                  Font-Size: &nbsp;{" "}
+                  <input
+                    onChange={changeFontSize}
+                    type="text"
+                    name=""
+                    id="text-size"
+                  />{" "}
+                </p>
+                <p>
+                  Font-Family: &nbsp;{" "}
+                  <input
+                    onChange={changeFontFamily}
+                    type="text"
+                    name=""
+                    id="text-size"
+                  />{" "}
+                </p>
+                <p>
+                  Text-Align: &nbsp;{" "}
+                  <input
+                    onChange={changeAlignment}
+                    type="text"
+                    name=""
+                    id="text-size"
+                  />{" "}
+                </p>
+              </div>
+            </div>
+          )}
+          <h2 className="memeTitle"> {memeName} </h2>
+
+          <div className="texts" id="texts">
+            <h2 className="memeText--1" id="topText" style={font_style}>
+              <div id="topTextheader">
+                <i class="fa-regular  fa-arrows-up-down-left-right "></i>
+              </div>
+              {textBoxState.text1}
+            </h2>
+
+            <img
+              src={meme.randomMemeImage}
+              id="disp--img"
+              alt=""
+              className="disp--img"
+            />
+
+            <h2 className="memeText--2" id="bottomText" style={font_style}>
+              <div id="bottomTextheader">
+                <i class="fa-regular  fa-arrows-up-down-left-right "></i>
+              </div>
+              {textBoxState.text2}
+            </h2>
+
+            <h2 className="memeText--3" id="bottomText" style={font_style}>
+              <div id="bottomTextheader">
+                <i class="fa-regular  fa-arrows-up-down-left-right "></i>
+              </div>
+              {textBoxState.text3}
+            </h2>
+
+            <h2 className="memeText--4" id="bottomText" style={font_style}>
+              <div id="bottomTextheader">
+                <i class="fa-regular  fa-arrows-up-down-left-right "></i>
+              </div>
+              {textBoxState.text4}
+            </h2>
+          </div>
+        </div>
+
+        {movable_array.map((movable) => {
+          return movable;
+        })}
+
+        <div className="download">
+          {/* Button to generate a new meme. */}
+          <button className="searchBtn" onClick={getMeme}>
+            Get a New Meme &nbsp; &nbsp; {<AutorenewIcon />}
+          </button>
+
+          {/* Button to save changes */}
+          <button
+            className="addBtn"
+            onClick={() => {
+              setText(0);
+            }}
+          >
+            Save Changes &nbsp; &nbsp;{<SaveIcon />}
+          </button>
+        </div>
+      </main>
+
       <div className="form">
         <div className="search--bar">
           <div className="text-field">
+            <h2>Add Text</h2>
             {textBox_array.map((textbox) => {
               return textbox;
             })}
@@ -73,88 +275,31 @@ export default function Search() {
             {/* Add Button */}
             <button
               className="addBtn2"
+              id="add"
               onClick={() => {
                 setText((prevState) => prevState + 1);
               }}
             >
-              +
+              {<AddIcon />}
             </button>
 
             {/* Remove Button */}
             <button
               className="addBtn2"
+              id="remove"
               onClick={() => {
                 setText((prevState) => prevState - 1);
               }}
             >
-              -
+              {<RemoveIcon />}
             </button>
           </div>
 
-          {/* Button to save changes */}
-          <button
-            className="addBtn"
-            onClick={() => {
-              setText(0);
-            }}
-          >
-            Save Changes
-          </button>
-
-          {/* Button to generate a new meme. */}
-          <button className="searchBtn" onClick={getMeme}>
-            Get a New Meme
+          <button onClick={screenshot} className="addBtn" id="download--btn">
+            Download Meme &nbsp; {<DownloadIcon />}
           </button>
         </div>
       </div>
-
-      <div className="display">
-        <h2 className="memeTitle"> {memeName} </h2>
-
-        <div className="texts">
-          <h2 className="memeText--1" id="topText">
-            <div id="topTextheader">
-              <i class="fa-regular  fa-arrows-up-down-left-right "></i>
-            </div>
-            {textBoxState.text1}
-          </h2>
-          <img src={meme.randomMemeImage} alt="" className="disp--img" />
-
-          <h2 className="memeText--2" id="bottomText">
-            <div id="bottomTextheader">
-              <i class="fa-regular  fa-arrows-up-down-left-right "></i>
-            </div>
-            {textBoxState.text2}
-          </h2>
-
-          <h2 className="memeText--3" id="bottomText">
-            <div id="bottomTextheader">
-              <i class="fa-regular  fa-arrows-up-down-left-right "></i>
-            </div>
-            {textBoxState.text3}
-          </h2>
-
-          <h2 className="memeText--4" id="bottomText">
-            <div id="bottomTextheader">
-              <i class="fa-regular  fa-arrows-up-down-left-right "></i>
-            </div>
-            {textBoxState.text4}
-          </h2>
-        </div>
-      </div>
-
-      {movable_array.map((movable) => {
-        return movable;
-      })}
-
-      <div className="download">
-        <button onClick={downloadImg} className="addBtn">
-          Download Image
-        </button>
-        <a href={meme.randomMemeImage} download>
-          download
-        </a>
-      </div>
-    </main>
+    </>
   );
 }

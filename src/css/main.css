@@ -13,6 +13,7 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   min-height: 100vh;
+  background-color: #011e3c;
 }
 
 .navbar {
@@ -29,9 +30,66 @@ body {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 1rem 2rem;
-  background-image: -webkit-gradient(linear, left top, right top, from(#672280), to(#A626D3));
-  background-image: linear-gradient(to right, #672280, #A626D3);
+  background-color: #071a2f;
+  border-bottom: 1px solid #1e5085;
   color: white;
+  -webkit-box-shadow: 0px 0.1px 18px -3px #1d5084;
+          box-shadow: 0px 0.1px 18px -3px #1d5084;
+  color: #b1bac3;
+}
+
+.drop {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: -webkit-fill-available;
+  width: -moz-available;
+  width: stretch;
+  -webkit-transform: translateY(-1rem);
+          transform: translateY(-1rem);
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  font-size: .8rem;
+}
+
+.drop input {
+  width: 4rem;
+}
+
+.drop .stng {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #132f4c;
+  width: 10rem;
+  padding: .5rem;
+  position: absolute;
+}
+
+.drop .stng p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  font-family: sans-serif;
+  width: -webkit-fill-available;
 }
 
 .nav--logo {
@@ -58,8 +116,20 @@ body {
 }
 
 .module {
-  font-family: 'Inter', sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  font-family: 'Karla', sans-serif;
   font-weight: 300;
+  cursor: pointer;
 }
 
 .form {
@@ -76,7 +146,6 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  margin-top: 3rem;
 }
 
 .search--bar {
@@ -93,20 +162,22 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 89vw;
+  width: -webkit-fill-available;
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
 }
 
 .search--bar input {
-  width: 41vw;
+  width: -webkit-fill-available;
   height: 3.5rem;
   border-radius: 6px;
-  border: 1px solid gray;
   font-size: 1rem;
   text-align: center;
   margin: .5rem 0;
+  border: 1px solid #1e5085;
+  background-color: #132f4c;
+  color: #b2bac2;
 }
 
 .search--button {
@@ -124,16 +195,17 @@ body {
       -ms-flex-align: center;
           align-items: center;
   text-align: center;
-  width: 41.5vw;
-  margin-top: 1rem;
   height: 4rem;
   border-radius: 6px;
   border: 1px solid black;
   font-size: 1rem;
   border: none;
-  background-image: -webkit-gradient(linear, left top, right top, from(#672280), to(#A626D3));
-  background-image: linear-gradient(to right, #672280, #A626D3);
   color: white;
+  width: -webkit-fill-available;
+  margin: 1rem 4rem;
+  background-color: #027ffe;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .addBtn2 {
@@ -152,11 +224,11 @@ body {
   border: 1px solid black;
   font-size: 1rem;
   border: none;
-  background-image: -webkit-gradient(linear, left top, right top, from(#672280), to(#A626D3));
-  background-image: linear-gradient(to right, #672280, #A626D3);
   color: white;
-  margin-top: 2rem;
-  width: 19vw;
+  padding: 0 2.5rem;
+  background-color: #027ffe;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .addBtn {
@@ -176,10 +248,32 @@ body {
   border: 1px solid black;
   font-size: 1rem;
   border: none;
-  background-image: -webkit-gradient(linear, left top, right top, from(#672280), to(#A626D3));
-  background-image: linear-gradient(to right, #672280, #A626D3);
   color: white;
-  margin-top: 2rem;
+  width: -webkit-fill-available;
+  margin: 1rem 4rem;
+  background-color: #027ffe;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#add {
+  border-radius: 12px;
+  height: 5rem;
+  width: 5rem;
+  cursor: pointer;
+  background-color: #027ffe;
+}
+
+#remove {
+  border-radius: 12px;
+  height: 5rem;
+  width: 5rem;
+  cursor: pointer;
+  background-color: #027ffe;
+}
+
+#download--btn {
+  margin-top: 6rem;
 }
 
 .display {
@@ -197,16 +291,21 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   height: 35rem;
+  height: -webkit-fill-available;
+  position: -webkit-sticky;
+  position: sticky;
 }
 
 .display .memeTitle {
-  margin-bottom: 1.5rem;
+  margin: 2rem 0;
   font-family: sans-serif;
+  color: white;
 }
 
 .display .disp--img {
-  width: 83vw;
-  height: 67vh;
+  width: 73vw;
+  height: auto;
+  z-index: -1;
 }
 
 .display .texts {
@@ -219,6 +318,7 @@ body {
   -webkit-box-align: right;
       -ms-flex-align: right;
           align-items: right;
+  position: relative;
 }
 
 .display .texts #topText {
@@ -228,6 +328,9 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   cursor: move;
   position: absolute;
 }
@@ -341,6 +444,11 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 4rem;
 }
 
 .text-field {
@@ -360,6 +468,15 @@ body {
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
+  width: -webkit-fill-available;
+  margin: 1rem 4rem;
+  font-family: sans-serif;
+  margin-top: 4rem;
+}
+
+.text-field h2 {
+  color: white;
+  margin-bottom: 1rem;
 }
 
 footer {
@@ -372,10 +489,37 @@ footer {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #cb5cf3;
+  background-color: #071a2f;
   height: 3rem;
-  color: white;
+  color: #b1bac3;
   font-family: 'Inter', sans-serif;
   margin-top: 10vh;
+  font-size: small;
+}
+
+@media (min-width: 0px) and (max-width: 500px) {
+  .drop .stng {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    background-color: gray;
+    width: 10rem;
+    padding: 0.5rem;
+    position: absolute;
+    top: 0rem;
+  }
+  .display {
+    position: relative;
+  }
 }
 /*# sourceMappingURL=main.css.map */
