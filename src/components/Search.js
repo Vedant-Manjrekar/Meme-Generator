@@ -10,6 +10,7 @@ import AddIcon from "@mui/icons-material/Add";
 import SaveIcon from "@mui/icons-material/Save";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
+import { useRef } from "react";
 
 export default function Search() {
   const screenshot = () => {
@@ -33,11 +34,17 @@ export default function Search() {
     fontFamily: dropState.font_family,
     textAlign: dropState.text_align,
     backgroundColor: dropState.bg_color,
+    webkitTextStrokeWidth: "1px",
+    webkitTextStrokeColor: dropState.txt_border,
+  };
+
+  const dropBox = {
+    top: dropState.value ? "" : "-17rem",
   };
 
   // functions to change font[size, color, family].
-  const changeFontColor = (e) => {
-    const font_color = e.target.value;
+  const changeFontColor = () => {
+    const font_color = document.getElementById("text1").value;
 
     dispatch(
       dropChange({
@@ -90,6 +97,16 @@ export default function Search() {
       })
     );
   };
+  const changeTxtBorder = (e) => {
+    const txt_border = e.target.value;
+
+    dispatch(
+      dropChange({
+        ...dropState,
+        txt_border,
+      })
+    );
+  };
 
   // accesing global state (using redux toolkit) for accesing state change made in Text component.
   const textBoxState = useSelector((state) => state.text.data);
@@ -104,7 +121,9 @@ export default function Search() {
   // logic for generating text fields on run-time.
   for (let i = 1; i <= text; i++) {
     textBox_array.push(<Text id={i} />);
-    movable_array.push(<ResizeableDiv id={i} key={i} />);
+    movable_array.push(
+      <ResizeableDiv id={i} onClick={changeFontColor} key={i} />
+    );
   }
 
   // state for storing random-meme link.
@@ -148,59 +167,65 @@ export default function Search() {
     <>
       <main>
         <div className="display">
-          {dropState.value && (
-            <div className="drop">
-              <div className="stng">
-                <p>
-                  Font-Color: &nbsp;{" "}
-                  <input
-                    onChange={changeFontColor}
-                    type="color"
-                    name=""
-                    id="text"
-                  />{" "}
-                </p>
-                <p>
-                  Background-Color: &nbsp;{" "}
-                  <input
-                    onChange={changeBgColor}
-                    type="color"
-                    name=""
-                    id="text"
-                  />{" "}
-                </p>
-                <p>
-                  Font-Size: &nbsp;{" "}
-                  <input
-                    onChange={changeFontSize}
-                    type="text"
-                    name=""
-                    id="text-size"
-                  />{" "}
-                </p>
-                <p>
-                  Font-Family: &nbsp;{" "}
-                  <input
-                    onChange={changeFontFamily}
-                    type="text"
-                    name=""
-                    id="text-size"
-                  />{" "}
-                </p>
-                <p>
-                  Text-Align: &nbsp;{" "}
-                  <input
-                    onChange={changeAlignment}
-                    type="text"
-                    name=""
-                    id="text-size"
-                  />{" "}
-                </p>
-              </div>
+          <div className="drop">
+            <div className="stng" style={dropBox}>
+              <p>
+                Font-Color: &nbsp;{" "}
+                <input
+                  onChange={changeFontColor}
+                  type="color"
+                  name=""
+                  id="text1"
+                />{" "}
+              </p>
+              <p>
+                Background-Color: &nbsp;{" "}
+                <input
+                  onChange={changeBgColor}
+                  type="color"
+                  name=""
+                  id="text2"
+                />{" "}
+              </p>
+              <p>
+                Text-Border: &nbsp;{" "}
+                <input
+                  onChange={changeTxtBorder}
+                  type="color"
+                  name=""
+                  id="text2"
+                />{" "}
+              </p>
+              <p>
+                Font-Size: &nbsp;{" "}
+                <input
+                  onChange={changeFontSize}
+                  type="text"
+                  name=""
+                  id="text-size text3"
+                />{" "}
+              </p>
+              <p>
+                Font-Family: &nbsp;{" "}
+                <input
+                  onChange={changeFontFamily}
+                  type="text"
+                  name=""
+                  id="text-size text4"
+                />{" "}
+              </p>
+              <p>
+                Text-Align: &nbsp;{" "}
+                <input
+                  onChange={changeAlignment}
+                  type="text"
+                  name=""
+                  id="text-size"
+                />{" "}
+              </p>
             </div>
-          )}
+          </div>
           <h2 className="memeTitle"> {memeName} </h2>
-
           <div className="texts" id="texts">
             <h2 className="memeText--1" id="topText" style={font_style}>
               <div id="topTextheader">

@@ -11,6 +11,7 @@ export default function Navbar() {
   const drop = () => {
     dispatch(
       dropChange({
+        ...dropState,
         value: !dropState.value,
       })
     );
@@ -25,7 +26,7 @@ export default function Navbar() {
         </div>
 
         <div className="module" align="center" onClick={drop}>
-          Settings &nbsp; {<SettingsIcon />}
+          {<SettingsIcon />}
         </div>
       </div>
     </>

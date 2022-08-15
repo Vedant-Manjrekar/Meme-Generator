@@ -7,6 +7,7 @@ function ResizeableDiv(props) {
   return (
     <>
       <Moveable
+        click={props.onClick}
         id={props.id}
         target={document.querySelector(`.memeText--${props.id}`)}
         container={null}

@@ -10,6 +10,7 @@ export const settingsSlice = createSlice({
       font_family: "",
       text_align: "",
       bg_color: "",
+      txt_border: "",
     },
   },
   reducers: {
