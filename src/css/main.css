@@ -300,12 +300,12 @@ body {
   margin: 2rem 0;
   font-family: sans-serif;
   color: white;
+  text-align: center;
 }
 
 .display .disp--img {
   width: 73vw;
   height: auto;
-  z-index: -1;
 }
 
 .display .texts {
@@ -319,6 +319,7 @@ body {
       -ms-flex-align: right;
           align-items: right;
   position: relative;
+  z-index: -1;
 }
 
 .display .texts #topText {
@@ -520,6 +521,10 @@ footer {
   }
   .display {
     position: relative;
+  }
+  .nav--logo p {
+    margin-left: 0.5rem;
+    font-size: 1rem;
   }
 }
 /*# sourceMappingURL=main.css.map */
