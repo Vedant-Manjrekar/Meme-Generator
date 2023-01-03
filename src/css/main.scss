@@ -30,7 +30,9 @@ main {
   justify-content: space-between;
   padding: 1rem 2rem;
   background-color: #071a2f;
-  border-bottom: 1px solid #1e5085;
+  position: fixed;
+  z-index: 3;
+  width: stretch;
   color: white;
   box-shadow: 0px 0.1px 18px -3px rgb(29, 80, 132);
   color: #b1bac3;
@@ -163,15 +165,12 @@ main {
   cursor: pointer;
 }
 
-#download--btn {
-  //   margin-top: 6rem;
-}
-
 .memeTitle {
   margin: 2rem 0;
   font-family: sans-serif;
   color: white;
   text-align: center;
+  margin-top: 15vh;
 }
 
 .display {
