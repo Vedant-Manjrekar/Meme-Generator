@@ -27,7 +27,7 @@ export default function Text(props) {
         name={`text${props.id}`}
         id={props.id}
         onChange={updateText}
-        placeholder="Type Here"
+        placeholder="Add Text"
         // value={meme.topText}
       />
     </>

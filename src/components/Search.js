@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
 import ResizeableDiv from "./ResizeableDiv";
-import memeData from "./memeData";
 import Text from "./Text";
 import { useSelector, useDispatch } from "react-redux";
 import * as htmlToImage from "html-to-image";
 import { dropChange } from "../features/settingsSlice";
-import DownloadIcon from "@mui/icons-material/Download";
 import AddIcon from "@mui/icons-material/Add";
-import SaveIcon from "@mui/icons-material/Save";
 import RemoveIcon from "@mui/icons-material/Remove";
-import AutorenewIcon from "@mui/icons-material/Autorenew";
-import { useRef } from "react";
 
 export default function Search() {
+  const dispatch = useDispatch();
+
+  // function to download meme (edited.)
   const screenshot = () => {
     htmlToImage
       .toJpeg(document.getElementById("texts"), { quality: 1 })
-      .then(function(dataUrl) {
+      .then(function (dataUrl) {
         var link = document.createElement("a");
         link.download = `${memeName}-memeGenerator.jpeg`;
         link.href = dataUrl;
@@ -24,10 +22,10 @@ export default function Search() {
       });
   };
 
+  // state for managing settings of text.
   const dropState = useSelector((state) => state.setting_drop.data);
 
-  const dispatch = useDispatch();
-
+  // style for text.
   const font_style = {
     color: dropState.font_color,
     fontSize: dropState.font_size,
@@ -38,8 +36,9 @@ export default function Search() {
     webkitTextStrokeColor: dropState.txt_border,
   };
 
+  // visiblity of settings.
   const dropBox = {
-    top: dropState.value ? "" : "-17rem",
+    display: dropState.value ? "flex" : "none",
   };
 
   // functions to change font[size, color, family].
@@ -111,12 +110,12 @@ export default function Search() {
   // accesing global state (using redux toolkit) for accesing state change made in Text component.
   const textBoxState = useSelector((state) => state.text.data);
 
-  // state to populate text fields. (when +, - is clicked this state is updated accordingly)
-  const [text, setText] = useState(0);
-
-  // Array to store text fields and draggable divs when populated.
+  // Arrays to store text fields and draggable divs when populated.
   let textBox_array = [];
   let movable_array = [];
+
+  // state to populate text fields. (when +, - is clicked this state is updated accordingly)
+  const [text, setText] = useState(1);
 
   // logic for generating text fields on run-time.
   for (let i = 1; i <= text; i++) {
@@ -165,8 +164,34 @@ export default function Search() {
 
   return (
     <>
+      <h2 className="memeTitle"> {memeName} </h2>
       <main>
+        <div className="download">
+          {/* Button to generate a new meme. */}
+          <button className="searchBtn btn" onClick={getMeme}>
+            New Meme
+          </button>
+
+          <button
+            className="addBtn btn"
+            onClick={() => {
+              setText(0);
+            }}
+          >
+            Save Changes
+          </button>
+
+          <button
+            onClick={screenshot}
+            className="addBtn btn"
+            id="download--btn"
+          >
+            Download
+            {/* {<DownloadIcon />} */}
+          </button>
+        </div>
         <div className="display">
+          {/* Settings drop box */}
           <div className="drop">
             <div className="stng" style={dropBox}>
               <p>
@@ -203,6 +228,7 @@ export default function Search() {
                   type="text"
                   name=""
                   id="text-size text3"
+                  placeholder="font-size"
                 />{" "}
               </p>
               <p>
@@ -212,6 +238,7 @@ export default function Search() {
                   type="text"
                   name=""
                   id="text-size text4"
+                  placeholder="font-family"
                 />{" "}
               </p>
               <p>
@@ -221,11 +248,13 @@ export default function Search() {
                   type="text"
                   name=""
                   id="text-size"
+                  placeholder="alignment"
                 />{" "}
               </p>
             </div>
           </div>
-          <h2 className="memeTitle"> {memeName} </h2>
+
+          {/* Positions for resizable divs */}
           <div className="texts" id="texts">
             <h2 className="memeText--1" id="topText" style={font_style}>
               <div id="topTextheader">
@@ -264,32 +293,15 @@ export default function Search() {
           </div>
         </div>
 
+        {/* Generating movable divs */}
         {movable_array.map((movable) => {
           return movable;
         })}
-
-        <div className="download">
-          {/* Button to generate a new meme. */}
-          <button className="searchBtn" onClick={getMeme}>
-            Get a New Meme &nbsp; &nbsp; {<AutorenewIcon />}
-          </button>
-
-          {/* Button to save changes */}
-          <button
-            className="addBtn"
-            onClick={() => {
-              setText(0);
-            }}
-          >
-            Save Changes &nbsp; &nbsp;{<SaveIcon />}
-          </button>
-        </div>
       </main>
 
       <div className="form">
         <div className="search--bar">
           <div className="text-field">
-            <h2>Add Text</h2>
             {textBox_array.map((textbox) => {
               return textbox;
             })}
@@ -299,7 +311,7 @@ export default function Search() {
           <div className="add--remove--btn">
             {/* Add Button */}
             <button
-              className="addBtn2"
+              className="addBtn2 btn"
               id="add"
               onClick={() => {
                 setText((prevState) => prevState + 1);
@@ -310,7 +322,7 @@ export default function Search() {
 
             {/* Remove Button */}
             <button
-              className="addBtn2"
+              className="addBtn2 btn"
               id="remove"
               onClick={() => {
                 setText((prevState) => prevState - 1);
@@ -319,10 +331,6 @@ export default function Search() {
               {<RemoveIcon />}
             </button>
           </div>
-
-          <button onClick={screenshot} className="addBtn" id="download--btn">
-            Download Meme &nbsp; {<DownloadIcon />}
-          </button>
         </div>
       </div>
     </>
